@@ -255,7 +255,7 @@ export default function ContactPage() {
                                 <Mail className="h-6 w-6 text-pink-500 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-semibold">Email Us</h3>
-                                    <p className="text-muted-foreground">hello@glowgirlapparel.com</p>
+                                    <p className="text-muted-foreground">glowgirlapparel19@gmail.com</p>
                                 </div>
                             </div>
                              <div className="flex items-center gap-4">

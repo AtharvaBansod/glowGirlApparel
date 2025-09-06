@@ -43,7 +43,7 @@ export const Footer = () => {
                     <div>
                         <h4 className="font-semibold mb-4 text-foreground">Follow Us</h4>
                         <div className="flex items-center gap-4">
-                            <Link href="#" aria-label="Instagram" className="text-muted-foreground hover:text-primary">
+                            <Link href="https://instagram.com/glow_girlapparel" aria-label="Instagram" className="text-muted-foreground hover:text-primary">
                                 <Instagram className="h-5 w-5" />
                             </Link>
                             <Link href="#" aria-label="Twitter" className="text-muted-foreground hover:text-primary">
