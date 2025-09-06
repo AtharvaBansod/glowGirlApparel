@@ -113,10 +113,22 @@ export interface AdminOrdersResponse extends PaginationData {
     orders: Order[];
 }
 
+export interface Contact {
+    _id: string;
+    user: User; // Can be populated
+    email: string;
+    queryType: 'General' | 'Order Related';
+    orderId?: string;
+    message: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
 export interface AnalyticsData {
     totalRevenue: number;
     orderCount: number;
     userCount: number;
     productCount: number;
     recentOrders: Order[];
+    contactQueryCount: number; 
 }

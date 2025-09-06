@@ -8,6 +8,7 @@ import { LayoutDashboard, ShoppingCart, Users } from 'lucide-react';
 const navItems = [
     { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/admin/orders', label: 'Orders', icon: ShoppingCart },
+    { href: '/admin/contacts', label: 'Contacts', icon: Users },
     // You can add more admin links here in the future
     // { href: '/admin/users', label: 'Customers', icon: Users },
 ];
