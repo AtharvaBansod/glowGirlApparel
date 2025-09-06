@@ -19,7 +19,6 @@ export default function AdminOrdersPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
 
-    // Memoized function to fetch orders based on current filters and page
     const fetchOrders = useCallback(async () => {
         setIsLoading(true);
         try {
@@ -60,7 +59,6 @@ export default function AdminOrdersPage() {
         }
     }, [user, authLoading, router, fetchOrders]);
     
-    // Handler for updating an order's status
     const handleStatusChange = async (orderId: string, newStatus: string) => {
         try {
             const response = await fetch('/api/admin/orders', {
@@ -73,10 +71,11 @@ export default function AdminOrdersPage() {
                 throw new Error(data.error || "Failed to update status.");
             }
             
-            // Update the status locally for immediate UI feedback
+            // --- FIX IS HERE ---
+            // We cast `newStatus` to the correct type to satisfy TypeScript.
             setOrders(prevOrders =>
                 prevOrders.map(order =>
-                    order._id === orderId ? { ...order, orderStatus: newStatus } : order
+                    order._id === orderId ? { ...order, orderStatus: newStatus as Order['orderStatus'] } : order
                 )
             );
             toast.success(data.message);
@@ -86,17 +85,15 @@ export default function AdminOrdersPage() {
         }
     };
     
-    // Handlers for pagination and filters
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
 
     const handleFilterChange = (status: string | null) => {
-        setCurrentPage(1); // Reset to first page on filter change
+        setCurrentPage(1);
         setFilters({ status });
     };
 
-    // Render loading state while auth is being checked
     if (authLoading) {
         return <div className="flex justify-center items-center h-[calc(100vh-80px)]"><LoadingSpinner size="lg" /></div>;
     }

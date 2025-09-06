@@ -1,3 +1,5 @@
+
+
 import { notFound } from 'next/navigation';
 import { Product as ProductType } from '@/types';
 import ProductDetailsClient from './ProductDetailsClient';
@@ -16,14 +18,18 @@ async function getProductData(id: string): Promise<{ product: ProductType | null
         await dbConnect(); // Ensure we have a database connection
 
         // Fetch the main product. .lean() returns a plain JS object for performance.
-        const product = await Product.findById(id).lean();
+        const productFromDb = await Product.findById(id).lean();
 
         // If no product is found, we can stop here.
-        if (!product) {
+        if (!productFromDb) {
             return { product: null, similarProducts: [] };
         }
 
-        // Fetch similar products from the same category, excluding the current one.
+        // --- FIX IS HERE ---
+        // We first cast to 'unknown' then to our specific type to satisfy TypeScript's strictness.
+        const product = productFromDb as unknown as ProductType;
+
+        // Fetch similar products ONLY after confirming the main product exists.
         const similarProducts = await Product.find({
             category: product.category,
             _id: { $ne: product._id } // $ne means "not equal"
@@ -59,3 +65,4 @@ export default async function ProductPage({ params }: { params: { id: string } }
     // Pass the server-fetched data as props to the interactive client component
     return <ProductDetailsClient initialProduct={product} similarProducts={similarProducts} />;
 }
+
